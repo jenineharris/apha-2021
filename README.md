@@ -1,4 +1,4 @@
-<p align = "center"><img src = "https://www.apha.org/-/media/Images/meetings/Annual-Meeting/2021/APHA2021_Banner_Blue.ashx?h=196.8&w=719&hash=2F3A00E7F25C7EF2380B04E42A37FD9B"> 
+<p align = "left"><img src = "https://www.apha.org/-/media/Images/meetings/Annual-Meeting/2021/APHA2021_Banner_Blue.ashx?h=196.8&w=719&hash=2F3A00E7F25C7EF2380B04E42A37FD9B"> 
 
 # October 2021 R Workshops
 
@@ -53,12 +53,7 @@ Download the participant files and save them together in the same folder on your
 
 ### R Resources
 
-If you miss the presentations, the slides are here:
-
-<ul>
-  <li> <a href = "https://jenineharris.github.io/chapin-slides/">Introduction to R</a>
-  <li> <a href = "https://jenineharris.github.io/chapin-slides/graphs.html">Data Viz in R</a>
-</ul>
+If you miss the presentations, the slides will be added here after the workshop.
 
 Other places to get more instruction or information on R:
 
