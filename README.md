@@ -36,7 +36,7 @@ Second, download and install R Studio:
 
 <ul>
   <li> Go to the R Studio <a href = "https://rstudio.com/products/rstudio/download/"> downloads page</a> 
-  <li> Click on the DOWNLOAD button under the RStudio Desktop column on the downloads page
+  <li> Click on the DOWNLOAD button under the <b>RStudio Desktop</b> column on the downloads page
   <li> Choose the Download for the operating system you have and click on it  
   <li> Use the installer that downloads to install R Studio 
 </ul>
