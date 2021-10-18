@@ -27,7 +27,7 @@ BRFSS_2015 <- read_xpt(file = temp)
 ## Selecting variables of interest
 
 * Search the codebook to learn how these variables were measured:
-    + https://www.cdc.gov/brfss/annual_data/2014/pdf/codebook14_llcp.pdf
+    + https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf
 
 ```{r chunk3}
 # select sex and transgender identity variables
