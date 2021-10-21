@@ -1,0 +1,403 @@
+---
+title: 'APHA Learning Institute: Introduction to R Statistical Software for Public
+  Health'
+author: "Kim Johnson"
+date:
+output: html_document
+---
+
+## Assign the number 3 to the object x
+
+```{r, chunk1}
+x<-3
+```
+
+## Create data frame
+
+```{r, chunk2}
+df<-data.frame(x)
+```
+
+## Making a vector and printing them
+
+```{r, chunk3}
+x<-c(1,2,3,4,5)
+y<-c(1:5)
+x
+y
+```
+
+## Creating and printing a list
+
+```{r, chunk4}
+mylist<-c("c", "a", 3, 4, "dataframe")
+mylist
+```
+
+## Creating a simple function and checking it
+
+```{r, chunk5}
+myfun<-function(v){
+  mean(v)
+}
+
+myfun(v=x)
+myfun(v=y)
+
+#Check with mean function that already exists
+mean(x)
+mean(y)
+```
+
+## Installing packages and opening libraries
+
+```{r, chunk6}
+# install.packages("haven") 
+# install.packages("readr") 
+# install.packages("dplyr")
+# install.packages("openxlsx")
+
+# for SPSS (read_sav()), stata (read_dta()), SAS(read_sas()) and xpt (read_xpt()) files
+library(haven) 
+
+# for reading csv file (read_csv())
+library(readr) 
+
+# for data management
+library(dplyr) 
+
+#for exporting excel files
+library(openxlsx) 
+```
+
+## Importing data: read in csv file
+
+```{r, chunk7}
+starbucks_csv <-
+ read_csv(
+   "https://raw.githubusercontent.com/kijohnson/ADA-Fall-2021/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_csv.csv"
+   )
+```
+
+## Importing data: read in stata file
+
+```{r, chunk8}
+starbucks_stata <-
+  read_dta(
+    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_stata.dta?raw=true"
+  )
+```
+
+## Importing data: read in tab file
+
+```{r, chunk9}
+starbucks_tab <-
+  read.delim(
+    "https://raw.githubusercontent.com/kijohnson/ADA-Fall-2021/master/Class%201/Class%201%20demo/starbucks_datasets/starbuckstab_tab.txt"
+  )
+```
+
+## Importing data: read in SAS XPT file
+
+```{r, chunk10}
+starbucks_xpt <-
+  read_xpt(
+    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbuck_xpt.xpt?raw=true"
+  ) 
+```
+
+## Importing data: read SPSS file
+
+```{r, chunk11}
+starbucks_spss <-
+  read_sav(
+    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_spss.sav?raw=true")
+```
+
+## Importing data: from your computer when it is located in the same folder as your code
+
+```{r, chunk12}
+starbucks_spss.same<-read_sav("starbucks_spss.sav")
+```
+
+## Importing data: from your computer using file path
+
+```{r, chunk13}
+starbucks_spss.different<-read_sav("/Users/kijohnson/Desktop/APHA demo/starbucks_datasets/starbucks_spss.sav")
+```
+
+## Importing data: using R studio's Import Dataset pull down menu
+
+```{r, chunk14}
+#insert code here
+```
+
+## Viewing the dataset
+
+```{r, chunk15}
+View(starbucks_xpt)
+```
+
+## Characterizing the dataset (we will use starbucks_xpt)
+
+```{r, chunk16}
+dim(starbucks_xpt) 
+```
+
+## Getting a summary of the types of variables using sapply
+
+```{r, chunk17}
+sapply(starbucks_xpt, typeof)
+```
+
+## Getting a summary of the type of variable using class
+
+```{r, chunk18}
+class(starbucks_xpt$DRINK)
+```
+
+## Getting column names to rename variables
+
+```{r, chunk19}
+colnames(starbucks_xpt)
+```
+
+## Using the names function 
+
+```{r, chunk20}
+#renames variables in order of appearance
+names(starbucks_xpt)[1:7]<-c("drink", "category", "calories", "fat (g)", 
+                             "carb. (g)", "fiber (g)", "protein (g)") 
+
+colnames(starbucks_xpt) 
+```
+
+## Renaming only one variable/column
+
+```{r, chunk21}
+#renames variables in order of appearance
+names(starbucks_xpt)[2]<-c("cat") 
+colnames(starbucks_xpt)
+```
+
+## Using the rename function from the dplyr package to rename specific variables
+
+```{r, chunk22}
+starbucks_xpt<-rename(starbucks_xpt, c("CALORIES"="calories"))
+```
+
+## Converting the character variable CALORIES to numeric
+```{r, chunk23, echo=TRUE, warning=FALSE}
+
+#first check class again
+class(starbucks_xpt$CALORIES)
+
+#convert calories variable to numeric using the as.numeric function for stats
+starbucks_xpt$calories_n<-as.numeric(starbucks_xpt$CALORIES) 
+
+#check the class of the new numeric calorie variable
+class(starbucks_xpt$calories_n)
+```
+
+## Getting simple statistics
+
+```{r, chunk24, echo=TRUE, warning=FALSE}
+#get summary stats
+summary(starbucks_xpt$calories_n) 
+
+#get mean
+mean(starbucks_xpt$calories_n, na.rm=TRUE) 
+
+#get median
+median(starbucks_xpt$calories_n, na.rm=TRUE) 
+
+#get sd
+sd(starbucks_xpt$calories_n, na.rm=TRUE) 
+
+#get variance
+var(starbucks_xpt$calories_n, na.rm=TRUE) 
+
+#get quantile
+quantile(starbucks_xpt$calories_n, na.rm=TRUE) 
+```
+
+## Deleting columns 
+
+```{r, chunk 25}
+#using the subset function
+starbucks_xpt2 <- subset(starbucks_xpt, select = -c(CALORIES) )
+colnames(starbucks_xpt2)
+
+#you can also do it the reverse by keeping all but the variables you want to drop
+starbucks_xpt3 = subset(starbucks_xpt, select = c(drink, cat, `fat (g)`, `carb. (g)`, `fiber (g)`, `protein (g)`))
+colnames(starbucks_xpt3)
+
+#rename cat back to category
+starbucks_xpt<-rename(starbucks_xpt, c("category"="cat"))
+colnames(starbucks_xpt)
+```
+
+## Deleting rows 
+
+```{r, chunk26}
+starbucks_xpt4<-na.omit(starbucks_xpt)
+```
+
+## Deleting a specific row
+
+```{r, chunk27}
+starbucks_xpt4<-starbucks_xpt4[-1,]
+```
+
+## Categorize/creating a factor variable 
+
+```{r, chunk28}
+#at or below the median
+starbucks_xpt$calories_med<-ifelse(starbucks_xpt$calories_n<=140, 0, ifelse(starbucks_xpt$calories_n>140, 1, NA))
+```
+
+## Check the type of variable
+
+```{r, chunk29}
+class(starbucks_xpt$calories_med) 
+```
+
+## Use the **as.factor** function to change from a numerical variable to a factor variable and label levels 
+
+```{r, chunk30}
+starbucks_xpt$calories_med<-factor(starbucks_xpt$calories_med, levels=c(0,1), 
+              labels = c("Less than or equal to the median", "Above the median")) 
+```
+
+## Make sure it's a factor
+
+```{r, chunk31}
+class(starbucks_xpt$calories_med) 
+```
+
+## Get the n in each level and check that our categorization is correct using the table function
+
+```{r, chunk32}
+table(starbucks_xpt$calories_med) 
+```
+
+## Subsetting: using the base **which** function
+
+```{r, chunk33}
+espresso<-starbucks_xpt[which(starbucks_xpt$category=='Starbucks Espresso Beverages'),] 
+
+# check that subsetting worked by checking number of espresso drinks in parent dataframe
+table(starbucks_xpt$category)
+
+# check that subsetting worked by checking number of espresso drinks in child dataframe
+dim(espresso) 
+
+# calculate mean number of calories in espresso drinks, removing 'NAs' first. 
+# Reminder: if you don't remove na's, the mean function will not work
+mean(espresso$calories_n, na.rm=TRUE) 
+
+#another way to see the mean number of calories in espresso drinks is using the summary function
+summary(espresso$calories_n) 
+
+# and another way if you don't want to create a new dataframe
+mean(starbucks_xpt[which(starbucks_xpt$category=='Starbucks Espresso Beverages'),]$calories_n, na.rm=TRUE)
+```
+
+## Subsetting: using the **filter** function from the dplyr package
+
+```{r, chunk34}
+espresso<-filter(starbucks_xpt, category=='Starbucks Espresso Beverages')
+mean(espresso$calories_n, na.rm=TRUE) 
+```
+
+## Changing a value of a variable
+
+```{r, chunk35}
+espresso$calories_n[espresso$drink=='Brown Sugar Shortbread Latte']<-300
+```
+
+## Changing a value of a variable using the **ifelse** function
+
+```{r, chunk36}
+espresso$calories_n<-ifelse(espresso$drink=='Brown Sugar Shortbread Latte', 300, espresso$calories_n)
+```
+
+## Creating datasets to use as examples for **cbind**, **rbind**, and **merge** functions
+
+```{r, chunk37}
+employee <- c('Trayan Klavdiya','Wasswa Tadesse','Jianhong Dong', "Mary Smith")
+salary <- c(210000, 234000, 268000, 240000)
+startdate <- as.Date(c('2010-11-1','2008-3-25','2007-3-14', '2009-10-28'))
+```
+
+## Combining each vector into three columns
+
+```{r, chunk38}
+employ.data <- data.frame(employee, salary, startdate, stringsAsFactors = FALSE)
+class(employ.data)
+
+# this makes a matrix (which can be useful for math functions) instead of a 
+# dataframe but we can convert it to a data frame using the as.data.frame function
+employ.data2<-cbind(employee, salary, startdate) 
+
+class(employ.data2)
+employ.data2<-as.data.frame(employ.data2)
+class(employ.data2)
+```
+
+## Adding a new column to our new dataset using the **cbind** function
+
+```{r, chunk39}
+coffee_pref<-c("dark", "light", "pumpkin spice", "likes tea")
+
+# the stringsAsFactors argument prevents R from turning character variables 
+# into factor variables
+employ.data<-cbind(employ.data, coffee_pref, stringsAsFactors = FALSE) 
+class(employ.data)
+```
+
+## Adding a new row using the **rbind** function
+
+```{r, chunk40}
+new_employee<-c('Martha Kuskowski', 240500, '2020-11-01', 'pumpkin spice')
+employ.data<-rbind(employ.data, new_employee)
+View(employ.data)
+```
+
+## Creating another dataframe 
+
+```{r, chunk41}
+employee <- c('Trayan Klavdiya','Wasswa Tadesse','Jianhong Dong', "Mary Smith", 
+              'Martha Kuskowski')
+termdate<-as.Date(c('2021-11-1','2021-11-1','2021-11-1', '2021-11-1', 
+                    '2021-11-1'))
+employ.data2<-data.frame(employee, termdate)
+
+#merge employ.data and employ.data2 by employee name
+all.employee.data<-merge(employ.data, employ.data2, by="employee")
+```
+
+## Assigning ID numbers
+
+```{r, chunk42}
+all.employee.data$ID <- seq.int(nrow(all.employee.data))
+View(employ.data)
+```
+
+## Reordering columns 
+
+```{r, chunk43}
+all.employee.data<-all.employee.data[, c(6,1,2,3,4,5)]
+View(all.employee.data)
+```
+
+## Exporting a dataset as an excel file or a csv file using the **write.xlsx** and **write.csv** functions
+
+```{r, chunk44}
+# write an excel file
+write.xlsx(all.employee.data, "all.employee.data.xlsx", overwrite=TRUE)
+
+# write a csv file
+write.csv(all.employee.data, "all.employee.data.csv")
+```
+
