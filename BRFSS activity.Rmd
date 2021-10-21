@@ -99,10 +99,7 @@ output: html_document
 # Categorize bmi according to CDC categories at https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
 
 ```{r}
-BRFSSall$bmi_cat<-ifelse(BRFSSall$bmi<18.5, 0, 
-                         ifelse(BRFSSall$bmi>=18.5 & BRFSSall$bmi<25, 1, 
-                                ifelse(BRFSSall$bmi>=25 & BRFSSall$bmi<30, 2,
-                                       ifelse(BRFSSall$bmi>=30, 3, NA))))
+
 ```
 
 # Create a bmi category factor variable and label the categories according to the CDC labels
