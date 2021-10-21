@@ -75,7 +75,7 @@ library(openxlsx)
 ```{r, chunk7}
 starbucks_csv <-
  read_csv(
-   "https://raw.githubusercontent.com/kijohnson/ADA-Fall-2021/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_csv.csv"
+   "https://raw.githubusercontent.com/jenineharris/apha-2021/main/starbucks_csv.csv"
    )
 ```
 
@@ -84,7 +84,7 @@ starbucks_csv <-
 ```{r, chunk8}
 starbucks_stata <-
   read_dta(
-    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_stata.dta?raw=true"
+    "https://github.com/jenineharris/apha-2021/blob/main/starbucks_stata.dta?raw=true"
   )
 ```
 
@@ -93,7 +93,7 @@ starbucks_stata <-
 ```{r, chunk9}
 starbucks_tab <-
   read.delim(
-    "https://raw.githubusercontent.com/kijohnson/ADA-Fall-2021/master/Class%201/Class%201%20demo/starbucks_datasets/starbuckstab_tab.txt"
+    "https://raw.githubusercontent.com/jenineharris/apha-2021/main/starbuckstab_tab.txt"
   )
 ```
 
@@ -102,7 +102,7 @@ starbucks_tab <-
 ```{r, chunk10}
 starbucks_xpt <-
   read_xpt(
-    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbuck_xpt.xpt?raw=true"
+    "https://github.com/jenineharris/apha-2021/blob/main/starbuck_xpt.xpt?raw=true"
   ) 
 ```
 
@@ -111,7 +111,7 @@ starbucks_xpt <-
 ```{r, chunk11}
 starbucks_spss <-
   read_sav(
-    "https://github.com/kijohnson/ADA-Fall-2021/blob/master/Class%201/Class%201%20demo/starbucks_datasets/starbucks_spss.sav?raw=true")
+    "https://github.com/jenineharris/apha-2021/blob/main/starbucks_spss.sav?raw=true")
 ```
 
 ## Importing data: from your computer when it is located in the same folder as your code
@@ -401,3 +401,7 @@ write.xlsx(all.employee.data, "all.employee.data.xlsx", overwrite=TRUE)
 write.csv(all.employee.data, "all.employee.data.csv")
 ```
 
+
+# Contact information
+
+- kijohnson@wustl.edu
