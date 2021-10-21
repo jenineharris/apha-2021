@@ -1,0 +1,125 @@
+---
+title: "Activity"
+author: "Kim Johnson"
+date: 
+output: html_document
+---
+
+## Instructions. For this activity, we are going to use the BRFSS 2017 dataset (a 10% random sample) to analyze height and weight data overall and by sex and age of the participant.
+
+
+## Open library for importing a .csv file.
+
+```{r}
+
+```
+
+## Import BRFSS data and assign it the name BRFSS.
+
+```{r}
+
+```
+
+## Determine the number of rows (number of observations) and columns/variables.
+
+```{r}
+
+```
+
+## Get the variable names.
+
+```{r}
+
+```
+
+## Delete the first column and check that it's removed.
+
+```{r}
+
+```
+
+## Move rowID to be first and check that it is first.
+
+```{r}
+
+```
+
+## Rename X_AGE5YR to AGE5YR.
+
+```{r}
+
+```
+
+## Get the mean weight and mean height.
+
+```{r}
+
+```
+
+## Check the values for sex using the table function.
+
+```{r}
+
+```
+# Create a factor variable called SEX_f for sex using the ifelse function with 0=Male and 1=Female. In the original dataset the 1=Male, 2=Female, and 9=Refused.  Assign NAs to 9.
+
+```{r}
+
+```
+
+# Run the table function on your new variable to see if the categorization worked correctly. Not you can add the argument useNA="always" to see the n of NAs.
+
+```{r}
+
+```
+
+# Subset males and get the mean height and weight.
+
+```{r}
+
+```
+
+# Subset females and get the mean height and weight.
+
+```{r}
+
+```
+
+# Merge in the BMI variable by rowID from the file called "BRFSS2017_BMI.csv
+
+```{r}
+
+```
+# Find the mean, min, and max bmi
+
+```{r}
+
+```
+
+# Categorize bmi according to CDC categories at https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+
+```{r}
+BRFSSall$bmi_cat<-ifelse(BRFSSall$bmi<18.5, 0, 
+                         ifelse(BRFSSall$bmi>=18.5 & BRFSSall$bmi<25, 1, 
+                                ifelse(BRFSSall$bmi>=25 & BRFSSall$bmi<30, 2,
+                                       ifelse(BRFSSall$bmi>=30, 3, NA))))
+```
+
+# Create a bmi category factor variable and label the categories according to the CDC labels
+
+```{r}
+
+```
+
+# Run the table function on your bmi categorical variable to check categorization
+
+```{r}
+
+```
+# Useful function not discussed to check the variable for accuracy
+- by(numerical variable name, categorical variable name, summary)
+
+```{r}
+
+```
+
