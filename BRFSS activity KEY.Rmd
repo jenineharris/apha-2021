@@ -1,0 +1,138 @@
+---
+title: "Activity"
+author: "Kim Johnson"
+date: 
+output: html_document
+---
+
+## Instructions. For this activity, we are going to use the BRFSS 2017 dataset (a 10% random sample) to analyze height and weight data overall and by sex and age of the participant.
+
+
+## Open library for importing a .csv file.
+
+```{r}
+library(readr) 
+```
+
+## Import BRFSS data and assign it the name BRFSS.
+
+```{r}
+BRFSS<-read_csv("https://raw.githubusercontent.com/jenineharris/apha-2021/main/BRFSS2017_10percent_v2.csv")
+```
+
+## Determine the number of rows (number of observations) and columns/variables.
+
+```{r}
+dim(BRFSS)
+```
+
+## Get the variable names.
+
+```{r}
+colnames(BRFSS)
+```
+
+## Delete the first column and check that it's removed.
+
+```{r}
+BRFSS <- subset(BRFSS, select = -c(...1) )
+colnames(BRFSS)
+```
+
+## Move rowID to be first and check that it is first.
+
+```{r}
+BRFSS<-BRFSS[, c(20, 1:19)]
+View(BRFSS)
+```
+
+## Rename X_AGE5YR to AGE5YR.
+
+```{r}
+names(BRFSS)[3]<-c("AGE5YR") 
+colnames(BRFSS)
+```
+
+## Get the mean weight and mean height.
+
+```{r}
+mean(BRFSS$wtkg, na.rm = TRUE)
+mean(BRFSS$ht_meters, na.rm = TRUE)
+```
+
+## Check the values for sex using the table function.
+
+```{r}
+table(BRFSS$SEX)
+```
+# Create a factor variable called SEX_f for sex using the ifelse function with 0=Male and 1=Female. In the original dataset the 1=Male, 2=Female, and 9=Refused.  Assign NAs to 9.
+
+```{r}
+BRFSS$SEX_f<-ifelse(BRFSS$SEX==1, 0, ifelse(BRFSS$SEX==2, 1, NA))
+BRFSS$SEX_f<-factor(BRFSS$SEX_f, levels=c(0,1), 
+              labels = c("Male", "Female")) 
+```
+
+# Run the table function on your new variable to see if the categorization worked correctly. Not you can add the argument useNA="always" to see the n of NAs.
+
+```{r}
+table(BRFSS$SEX_f, useNA = "always")
+```
+
+# Subset males and get the mean height and weight.
+
+```{r}
+males<-filter(BRFSS, SEX_f=='Male')
+mean(males$ht_meters, na.rm=TRUE) 
+mean(males$wtkg, na.rm=TRUE) 
+```
+
+# Subset females and get the mean height and weight.
+
+```{r}
+females<-filter(BRFSS, SEX_f=='Female')
+mean(females$ht_meters, na.rm=TRUE) 
+mean(females$wtkg, na.rm=TRUE) 
+```
+
+# Merge in the BMI variable by rowID from the file called "BRFSS2017_BMI.csv
+
+```{r}
+BRFSSbmi<-read_csv("https://raw.githubusercontent.com/jenineharris/apha-2021/main/BRFSS2017_BMI.csv")
+BRFSSall<-merge(BRFSSbmi, BRFSS, by="rowID")
+```
+# Find the mean, min, and max bmi
+
+```{r}
+summary(BRFSSall$bmi,  na.rm=TRUE)
+
+```
+
+# Categorize bmi according to CDC categories at https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+
+```{r}
+BRFSSall$bmi_cat<-ifelse(BRFSSall$bmi<18.5, 0, 
+                         ifelse(BRFSSall$bmi>=18.5 & BRFSSall$bmi<25, 1, 
+                                ifelse(BRFSSall$bmi>=25 & BRFSSall$bmi<30, 2,
+                                       ifelse(BRFSSall$bmi>=30, 3, NA))))
+```
+
+# Create a bmi category factor variable and label the categories according to the CDC labels
+
+```{r}
+BRFSSall$bmi_cat<-factor(BRFSSall$bmi_cat, levels=c(0:3), 
+              labels = c("Underweight", "Healthy weight", "Overweight", "Obesity")) 
+```
+
+# Run the table function on your bmi categorical variable to check categorization
+
+```{r}
+table(BRFSSall$bmi_cat)
+```
+# Useful function not discussed to check the variable for accuracy
+- by(numerical variable name, categorical variable name, summary)
+
+```{r}
+#by(BRFSSall$bmi, BRFSSall$bmi_cat,  summary)
+```
+
