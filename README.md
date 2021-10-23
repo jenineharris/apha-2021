@@ -53,7 +53,13 @@ Download the participant files and save them together in the same folder on your
 
 ### R Resources
 
-If you miss the presentations, the slides will be added here after the workshop.
+If you miss the presentations, the slides are here:
+
+<ul>
+  <li> <a href = "https://jenineharris.github.io/apha-2021-slides/Starbucks-demo.html">Day 1 Starbucks Presentation</a></li>
+  <li> <a href = "https://jenineharris.github.io/apha-2021-slides/analysis-tables.html">Day 2 Analysis & Tables</a></li>
+  <li> <a href = "https://jenineharris.github.io/apha-2021-slides/graphs-full.html">Day 2 Graphs</a></li>
+</ul>
 
 Other places to get more instruction or information on R:
 
