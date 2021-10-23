@@ -123,7 +123,7 @@ starbucks_spss.same<-read_sav("starbucks_spss.sav")
 ## Importing data: from your computer using file path
 
 ```{r, chunk13}
-starbucks_spss.different<-read_sav("/Users/kijohnson/Desktop/APHA demo/starbucks_datasets/starbucks_spss.sav")
+#starbucks_spss.different<-read_sav("your path")
 ```
 
 ## Importing data: using R studio's Import Dataset pull down menu
